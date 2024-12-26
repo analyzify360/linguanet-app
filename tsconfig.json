@@ -22,10 +22,12 @@
       "components/*": [
         "src/components/*"
       ]
-    }
+    },
+    "plugins": [{ "name": "typescript-plugin-css-modules" }]
   },
   "include": [
     "./src",
-    "./webpack.config.ts"
+    "./webpack.config.ts",
+    "typings.d.ts"
   ]
 }

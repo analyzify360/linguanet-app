@@ -1,4 +1,5 @@
 import React from "react";
+import "../../style.scss";
 
 const HelloWorld: React.FC = () => (
     <>
@@ -7,7 +8,7 @@ const HelloWorld: React.FC = () => (
         <hr />
 
         <h3>Environmental variables:</h3>
-        <p>
+        <p className="chat">
             process.env.PRODUCTION: <b>{process.env.PRODUCTION.toString()}</b>
         </p>
         <p>
