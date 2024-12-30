@@ -38,7 +38,7 @@ const App: React.FC = () => {
             let task_string = inputType === "Text" ? "text" : "speech";
             task_string += outputType === "Text" ? "2text" : "2speech";
             console.log(task_string);
-            const response = await fetch("http://74.80.190.164:10125/api/translation", {
+            const response = await fetch(`${process.env.SERVER_URL}/api/translation`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
