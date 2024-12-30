@@ -23,11 +23,13 @@ const App: React.FC = () => {
         inputType: string,
         outputType: string
     ) => {
+        console.log(content, inputLanguage, outputLanguage, inputType, outputType);
         const userMessage: Message = {
             id: uuidv4(),
             sender: "User",
             content,
-            timestamp: new Date().toLocaleTimeString()
+            timestamp: new Date().toLocaleTimeString(),
+            isAudio: inputType === "Speech"
         };
 
         setMessages((prev) => [...prev, userMessage]);
@@ -36,15 +38,15 @@ const App: React.FC = () => {
             let task_string = inputType === "Text" ? "text" : "speech";
             task_string += outputType === "Text" ? "2text" : "2speech";
             console.log(task_string);
-            const response = await fetch("https://your-backend-api.com/translate", {
+            const response = await fetch("http://74.80.190.164:10125/api/translation", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
                     task_string: task_string,
-                    target_language: inputLanguage,
-                    source_language: outputLanguage,
+                    target_language: outputLanguage,
+                    source_language: inputLanguage,
                     input: content
                 })
             });
@@ -57,8 +59,9 @@ const App: React.FC = () => {
             const assistantMessage: Message = {
                 id: uuidv4(),
                 sender: "Assistant",
-                content: data.translatedText,
-                timestamp: new Date().toLocaleTimeString()
+                content: data,
+                timestamp: new Date().toLocaleTimeString(),
+                isAudio: outputType === "Speech"
             };
 
             setMessages((prev) => [...prev, assistantMessage]);

@@ -43,18 +43,28 @@ const ChatPanel: React.FC<ChatPanelProps> = ({messages}) => {
                     >
                         {message.sender} - {message.timestamp}
                     </Typography>
-                    <Typography
-                        sx={{
-                            backgroundColor: message.sender === "User" ? "#61dafb" : "#3a3a3a",
-                            padding: "10px",
-                            borderRadius: "8px",
-                            color: message.sender === "User" ? "#000" : "#fff",
-                            maxWidth: "70%",
-                            whiteSpace: "pre-wrap"
-                        }}
-                    >
-                        {message.content}
-                    </Typography>
+                    {message.isAudio ? (
+                        <audio controls>
+                            <source
+                                src={`data:audio/wav;base64,${message.content}`}
+                                type="audio/wav"
+                            />
+                            Your browser does not support the audio element.
+                        </audio>
+                    ) : (
+                        <Typography
+                            sx={{
+                                backgroundColor: message.sender === "User" ? "#61dafb" : "#3a3a3a",
+                                padding: "10px",
+                                borderRadius: "8px",
+                                color: message.sender === "User" ? "#000" : "#fff",
+                                maxWidth: "70%",
+                                whiteSpace: "pre-wrap"
+                            }}
+                        >
+                            {message.content}
+                        </Typography>
+                    )}
                 </Box>
             ))}
             <div ref={chatEndRef} />

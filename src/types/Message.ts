@@ -3,4 +3,5 @@ export interface Message {
     sender: "User" | "Assistant";
     content: string;
     timestamp: string;
+    isAudio?: boolean;
 }
